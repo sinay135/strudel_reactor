@@ -20,10 +20,7 @@ export function SetupButtons() {
 
     document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
     document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-    document.getElementById('process').addEventListener('click', () => {
-        Proc()
-    }
-    )
+    document.getElementById('process').addEventListener('click', () => globalEditor.Proc());
     document.getElementById('process_play').addEventListener('click', () => {
         if (globalEditor != null) {
             Proc()
@@ -72,10 +69,10 @@ export default function StrudelDemo() {
             //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
                 //init canvas
                 const canvas = document.getElementById('roll');
-                canvas.width = canvas.width * 2;
-                canvas.height = canvas.height * 2;
+                canvas.width = canvas.width * 3;
+                canvas.height = canvas.height * 4.19;
                 const drawContext = canvas.getContext('2d');
-                const drawTime = [-0, 2]; // time window of drawn haps
+                const drawTime = [0, 2]; // time window of drawn haps
                 globalEditor = new StrudelMirror({
                     defaultOutput: webaudioOutput,
                     getTime: () => getAudioContext().currentTime,
@@ -105,45 +102,55 @@ export default function StrudelDemo() {
 
 
     return (
-        <div style={{backgroundColor: 'rgb(20, 20, 20)', color: 'lightgreen'}}>
-            <h2 className="ps-3">Strudel Demo</h2>
+        <div style={{backgroundColor: 'rgb(20, 20, 20)', color: 'lightgreen', overflowX: "hidden"}}>
+            <h2 className="ps-3"></h2>
             <main>
                 <div className="container-fluid">
-                    <div className="col ps-1">
+
+                    <div className="col ps-1 pt-2">
                         <nav>
+                            <button className="btn btn-secondary col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em'}}><strong>Strudel Demo</strong></button>
                             <button id="process" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Preprocess</button>
                             <button id="process_play" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Proc & Play</button>
                             <button id="play" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Play</button>
                             <button id="stop" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Stop</button>
                         </nav>
                     </div>
+                    
                     <div className="row">
-                        <div className="ps-3" style={{ maxHeight: '80vh', overflowY: 'auto', width: '80%'}}>
-                            <textarea className="rounded-0 form-control" style={{borderTopRightRadius: "1"}} rows="8" id="proc" ></textarea>
+                        <div className="col-11">
+                            <div className="ps-1" style={{ maxHeight: '58vh', overflowY: 'auto'}}>
+                                <textarea className="rounded-0 form-control" style={{borderTopRightRadius: "1", scrollbarWidth: "thin", scrollbarColor: 'grey rgba(230, 230, 230, 1)'}} rows="8" id="proc" ></textarea>
+                            </div>
+                            <div className="ps-1 pe-0" style={{ maxHeight: '58vh', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
+                                <div id="editor" />
+                                <div id="output" />
+                            </div>
+                        </div>
+
+                        <div className="col-1 ps-0">
+                            <canvas id="roll"></canvas>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="ps-3" style={{ maxHeight: '50vh', overflowY: 'auto', width: '80%'}}>
-                            <div id="editor" />
-                            <div id="output" />
-                        </div>
-                        <div className="col-md-4">
-                            <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={ProcAndPlay} defaultChecked />
-                                <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                    p1: ON
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={ProcAndPlay} />
-                                <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                    p1: HUSH
-                                </label>
-                            </div>
-                        </div>
+                    
+
+                    
+                </div>
+
+                <div className="col-md-4">
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={ProcAndPlay} defaultChecked />
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                            p1: ON
+                        </label>
+                    </div>
+                    <div className="form-check">
+                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={ProcAndPlay} />
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                            p1: HUSH
+                        </label>
                     </div>
                 </div>
-                <canvas id="roll"></canvas>
             </main >
         </div >
     );
