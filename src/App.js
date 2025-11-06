@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
 import { evalScope } from '@strudel/core';
 import { drawPianoroll } from '@strudel/draw';
@@ -9,6 +9,10 @@ import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/w
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
+import Hush from './components/Hush';
+import Editors from './components/Editors';
+import PlayStop from './components/PlayStop';
+import ProcPlay from './components/ProcPlay';
 
 let globalEditor = null;
 
@@ -17,25 +21,13 @@ const handleD3Data = (event) => {
 };
 
 export function SetupButtons() {
-
-    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
     document.getElementById('process').addEventListener('click', () => globalEditor.Proc());
     document.getElementById('process_play').addEventListener('click', () => {
         if (globalEditor != null) {
             Proc()
             globalEditor.evaluate()
         }
-    }
-    )
-}
-
-export function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started == true) {
-        console.log(globalEditor)
-        Proc()
-        globalEditor.evaluate();
-    }
+    })
 }
 
 export function Proc() {
@@ -59,6 +51,15 @@ export function ProcessText(match, ...args) {
 export default function StrudelDemo() {
 
     const hasRun = useRef(false);
+
+    const handlePlay = () => {
+        globalEditor.evaluate()
+    }
+    const handleStop = () => {
+        globalEditor.stop()
+    }
+
+    const [songText, setSongText] = useState(stranger_tune)
 
     useEffect(() => {
 
@@ -93,12 +94,10 @@ export default function StrudelDemo() {
                     },
                 });
                 
-            document.getElementById('proc').value = stranger_tune
-            SetupButtons()
-            Proc()
+            document.getElementById('proc').value = stranger_tune;
         }
-
-    }, []);
+        globalEditor.setCode(songText);
+    }, [songText]);
 
 
     return (
@@ -109,47 +108,18 @@ export default function StrudelDemo() {
 
                     <div className="col ps-1 pt-2">
                         <nav>
-                            <button className="btn btn-secondary col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em'}}><strong>Strudel Demo</strong></button>
-                            <button id="process" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Preprocess</button>
-                            <button id="process_play" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Proc & Play</button>
-                            <button id="play" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Play</button>
-                            <button id="stop" className="btn btn-dark col-md-1" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0"}}>Stop</button>
+                            <button className="btn btn-dark col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em'}}><strong>Strudel Demo</strong></button>
+                            <ProcPlay />
+                            <PlayStop onPlay={handlePlay} onStop={handleStop} />
                         </nav>
                     </div>
                     
-                    <div className="row">
-                        <div className="col-11">
-                            <div className="ps-1" style={{ maxHeight: '58vh', overflowY: 'auto'}}>
-                                <textarea className="rounded-0 form-control" style={{borderTopRightRadius: "1", scrollbarWidth: "thin", scrollbarColor: 'grey rgba(230, 230, 230, 1)'}} rows="8" id="proc" ></textarea>
-                            </div>
-                            <div className="ps-1 pe-0" style={{ maxHeight: '58vh', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
-                                <div id="editor" />
-                                <div id="output" />
-                            </div>
-                        </div>
-
-                        <div className="col-1 ps-0">
-                            <canvas id="roll"></canvas>
-                        </div>
-                    </div>
-                    
-
+                    <Editors defaultValue={songText} onChange={(e) => setSongText(e.target.value)} /> {/* textarea and canvas */}
                     
                 </div>
 
                 <div className="col-md-4">
-                    <div className="form-check">
-                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={ProcAndPlay} defaultChecked />
-                        <label className="form-check-label" htmlFor="flexRadioDefault1">
-                            p1: ON
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={ProcAndPlay} />
-                        <label className="form-check-label" htmlFor="flexRadioDefault2">
-                            p1: HUSH
-                        </label>
-                    </div>
+                    <Hush />
                 </div>
             </main >
         </div >
