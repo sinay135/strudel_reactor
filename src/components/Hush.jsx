@@ -1,6 +1,6 @@
 export default function Hush() {
     return (
-        <div>
+        <div className="ps-3 py-2">
             <div className="form-check">
                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" defaultChecked />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">

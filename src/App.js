@@ -13,6 +13,7 @@ import Hush from './components/Hush';
 import Editors from './components/Editors';
 import PlayStop from './components/PlayStop';
 import ProcPlay from './components/ProcPlay';
+import CPM from './components/CPM';
 
 let globalEditor = null;
 
@@ -21,7 +22,7 @@ const handleD3Data = (event) => {
 };
 
 export function SetupButtons() {
-    document.getElementById('process').addEventListener('click', () => globalEditor.Proc());
+    document.getElementById('process').addEventListener('click', () => Proc());
     document.getElementById('process_play').addEventListener('click', () => {
         if (globalEditor != null) {
             Proc()
@@ -51,6 +52,8 @@ export function ProcessText(match, ...args) {
 export default function StrudelDemo() {
 
     const hasRun = useRef(false);
+    const [songText, setSongText] = useState(stranger_tune)
+    const [cpm, setCpm] = useState(30);
 
     const handlePlay = () => {
         globalEditor.evaluate()
@@ -58,8 +61,6 @@ export default function StrudelDemo() {
     const handleStop = () => {
         globalEditor.stop()
     }
-
-    const [songText, setSongText] = useState(stranger_tune)
 
     useEffect(() => {
 
@@ -96,8 +97,25 @@ export default function StrudelDemo() {
                 
             document.getElementById('proc').value = stranger_tune;
         }
+        SetupButtons();
         globalEditor.setCode(songText);
     }, [songText]);
+
+    useEffect(() => {
+        const textArea = document.getElementById("proc");
+        if (!textArea) return;
+
+        // Replace existing setcpm(n) call, or add it if missing
+        let text = textArea.value;
+        if (text.match(/setcpm\(\d*\)/)) {
+            text = text.replace(/setcpm\(\d*\)/, `setcpm(${cpm})`);
+        } else {
+            text = `setcpm(${cpm})\n` + text;
+        }
+        textArea.value = text;
+        globalEditor.setCode(text);
+    }, [cpm]);
+
 
 
     return (
@@ -105,7 +123,6 @@ export default function StrudelDemo() {
             <h2 className="ps-3"></h2>
             <main>
                 <div className="container-fluid">
-
                     <div className="col ps-1 pt-2">
                         <nav>
                             <button className="btn btn-dark col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em'}}><strong>Strudel Demo</strong></button>
@@ -113,12 +130,10 @@ export default function StrudelDemo() {
                             <PlayStop onPlay={handlePlay} onStop={handleStop} />
                         </nav>
                     </div>
-                    
                     <Editors defaultValue={songText} onChange={(e) => setSongText(e.target.value)} /> {/* textarea and canvas */}
-                    
                 </div>
-
                 <div className="col-md-4">
+                    <CPM cpm={cpm} setCpm={setCpm} />
                     <Hush />
                 </div>
             </main >
