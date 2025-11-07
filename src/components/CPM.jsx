@@ -10,7 +10,7 @@ export default function CPM({cpm, setCpm}) {
             <div className="col-md-1">
                 <input  type="text" 
                         class="form-control" 
-                        style={{backgroundColor: "lightgreen", borderTopLeftRadius: '0', borderBottomLeftRadius: '0', borderBottomRightRadius: '0', borderWidth: '0'}} 
+                        style={{backgroundColor: "rgba(55, 55, 55, 1)", color: "lightgrey", borderTopLeftRadius: '0', borderBottomLeftRadius: '0', borderBottomRightRadius: '0', borderWidth: '0'}} 
                         placeholder="/" 
                         aria-label="cpm" 
                         value={cpm} 

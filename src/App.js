@@ -74,7 +74,18 @@ export default function StrudelDemo() {
                 transpiler,
                 root: document.getElementById('editor'),
                 drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
+                onDraw: (haps, time) => drawPianoroll({ 
+                    haps, 
+                    time, 
+                    ctx: drawContext, 
+                    drawTime, 
+                    fold: 0, 
+                    playheadColor: '#00ff99',
+                    fillActive: true,
+                    strokeActive: false, 
+                    labels: true,
+                    cycles: 5
+                }),
                 prebake: async () => {
                     initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
                     const loadModules = evalScope(
@@ -87,7 +98,6 @@ export default function StrudelDemo() {
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
                 },
             });
-            
             window.globalEditor = globalEditor;
             document.getElementById('proc').value = stranger_tune;
             document.getElementById('process').addEventListener('click', () => Proc());
