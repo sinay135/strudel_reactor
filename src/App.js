@@ -114,8 +114,9 @@ export default function StrudelDemo() {
         }
         textArea.value = text;
         globalEditor.setCode(text);
+        Proc()
+        globalEditor.evaluate()
     }, [cpm]);
-
 
 
     return (
@@ -124,16 +125,16 @@ export default function StrudelDemo() {
             <main>
                 <div className="container-fluid">
                     <div className="col ps-1 pt-2">
-                        <nav>
-                            <button className="btn btn-dark col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em'}}><strong>Strudel Demo</strong></button>
+                        <nav className='d-flex align-items-center'>
+                            <button className="btn btn-dark col py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "38px", lineHeight: "38px"}}><strong>Strudel Demo</strong></button>
                             <ProcPlay />
                             <PlayStop onPlay={handlePlay} onStop={handleStop} />
+                            <CPM cpm={cpm} setCpm={setCpm} />
                         </nav>
                     </div>
                     <Editors defaultValue={songText} onChange={(e) => setSongText(e.target.value)} /> {/* textarea and canvas */}
                 </div>
                 <div className="col-md-4">
-                    <CPM cpm={cpm} setCpm={setCpm} />
                     <Hush />
                 </div>
             </main >
