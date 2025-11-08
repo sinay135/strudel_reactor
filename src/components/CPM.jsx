@@ -1,5 +1,29 @@
 
-export default function CPM({cpm, setCpm}) {
+import { useEffect, useState } from "react";
+import {Proc} from './useStrudel';
+
+export default function CPM({globalEditor, handleToggle}) {
+
+    const [cpm, setCpm] = useState(30);
+
+    useEffect(() => {
+        if (!globalEditor) return;
+        const textArea = document.getElementById("proc");
+        if (!textArea) return;
+
+        // Replace existing setcpm(n) call, or add it if missing
+        let text = textArea.value;
+        if (text.match(/setcpm\(\d*\)/)) {
+            text = text.replace(/setcpm\(\d*\)/, `setcpm(${cpm})`);
+        } else {
+            text = `setcpm(${cpm})\n` + text;
+        }
+        textArea.value = text;
+        globalEditor.setCode(text);
+        Proc(globalEditor);
+        handleToggle();
+    }, [cpm]);
+
     return (
         <div class="input-group ps-3">
             <div class="input-group-prepend">

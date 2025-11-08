@@ -1,6 +1,5 @@
 import './App.css';
 import { useEffect, useRef, useState } from "react";
-import { stranger_tune } from './tunes';
 import Hush from './components/Hush';
 import Editors from './components/Editors';
 import PlayStop from './components/PlayStop';
@@ -12,8 +11,6 @@ import useStrudel, {Proc} from './components/useStrudel';
 
 export default function StrudelDemo() {
     const globalEditor = useStrudel();
-
-    const [songText, setSongText] = useState(stranger_tune)
 
     // display toggle
     const [isDisplayChecked, setDisplayChecked] = useState(true);
@@ -57,34 +54,7 @@ export default function StrudelDemo() {
             setIsPlaying(true);
         }
     }
-
-    // cpm
-    const [cpm, setCpm] = useState(30);
-
-    useEffect(() => {
-        if (!globalEditor) return;
-        globalEditor.setCode(songText);
-    }, [songText])
-
-    useEffect(() => {
-        if (!globalEditor) return;
-        const textArea = document.getElementById("proc");
-        if (!textArea) return;
-
-        // Replace existing setcpm(n) call, or add it if missing
-        let text = textArea.value;
-        if (text.match(/setcpm\(\d*\)/)) {
-            text = text.replace(/setcpm\(\d*\)/, `setcpm(${cpm})`);
-        } else {
-            text = `setcpm(${cpm})\n` + text;
-        }
-        textArea.value = text;
-        globalEditor.setCode(text);
-        Proc(globalEditor);
-        handleToggle();
-    }, [cpm]);
-
-
+    
     return (
         <div style={{backgroundColor: 'rgb(20, 20, 20)', color: 'lightgreen', overflowX: "hidden", minHeight: '100vh'}}>
             <h2 className="ps-3"></h2>
@@ -98,12 +68,11 @@ export default function StrudelDemo() {
                             <ProcPlay />                                                                {/* process */}
                             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
                             <Volume volume={volume} setVolume={setVolume} />
-                            <CPM cpm={cpm} setCpm={setCpm} />                                           {/* CPM input */}
+                            <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>                                           {/* CPM input */}
                         </nav>
                     </div>
                     
-                    <Editors    defaultValue={songText} 
-                                onChange={(e) => setSongText(e.target.value)} 
+                    <Editors    globalEditor={globalEditor}
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
                                 controlChecked={isControlChecked}

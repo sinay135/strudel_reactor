@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Hush from "./Hush";
 
 function Control( {controlChecked} ) {
@@ -24,7 +25,7 @@ function TextArea( {displaySize, displayChecked, defaultValue, onChange} ) {
     )
 }
 
-function Editor( {editorSize} ) {
+function Editor( {editorSize} ) {    
     return (
         <div className={`col-${editorSize}`}>
             <div style={{ maxHeight: '92vh', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
@@ -35,12 +36,20 @@ function Editor( {editorSize} ) {
     )
 }
 
-export default function Editors({defaultValue, onChange, displayChecked, displaySize, controlChecked, editorSize}) {
+export default function Editors({globalEditor, displayChecked, displaySize, controlChecked, editorSize}) {
+    
+    const [songText, setSongText] = useState()
+
+    useEffect(() => {
+        if (!globalEditor) return;
+        globalEditor.setCode(songText);
+    }, [songText])
+
     return (
         <div className="row g-0" >
             <Control controlChecked={controlChecked} />
 
-            <TextArea displaySize={displaySize} displayChecked={displayChecked} defaultValue={defaultValue} onChange={onChange} />
+            <TextArea displaySize={displaySize} displayChecked={displayChecked} defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
             
             <Editor editorSize={editorSize} />
 
