@@ -48,10 +48,8 @@ export default function StrudelDemo() {
 
     // display toggle
     const [isDisplayChecked, setDisplayChecked] = useState(true);
-    const displayToggle = (e) => {
-        setDisplayChecked(e.target.checked);
-        setEditorSize(editorSize == 6 ? 9 : 6);
-    }
+    const displayToggle = (e) => setDisplayChecked(e.target.checked);
+
     const [displaySize, setDisplaySize] = useState(5);
     const [editorSize, setEditorSize] = useState(6);
     const displaySizeToggle = (e) => setDisplaySize(displaySize == 5 ? 3 : 5); 
@@ -62,6 +60,18 @@ export default function StrudelDemo() {
         setControlChecked(e.target.checked);
         displaySizeToggle();
     }
+
+    useEffect(() => {
+        if (!isDisplayChecked && !isControlChecked) {
+            setEditorSize(11);
+        } else if (isDisplayChecked && !isControlChecked) {
+            setEditorSize(6);
+        } else if (!isDisplayChecked && isControlChecked) {
+            setEditorSize(9);
+        } else {
+            setEditorSize(6);
+        }
+    }, [isDisplayChecked, isControlChecked]);
 
     // volume bar
     const [volume, setVolume] = useState(80);
