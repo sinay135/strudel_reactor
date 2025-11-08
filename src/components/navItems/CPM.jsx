@@ -10,7 +10,7 @@ export default function CPM({globalEditor, handleToggle}) {
         const textArea = document.getElementById("proc");
         if (!textArea) return;
 
-        // Replace existing setcpm(n) call, or add it if missing
+        // replace setcpm() or add if it doesnt exist
         let text = textArea.value;
         if (text.match(/setcpm\(\d*\)/)) {
             text = text.replace(/setcpm\(\d*\)/, `setcpm(${cpm})`);

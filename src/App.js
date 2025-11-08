@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from "react";
 import Screens from './components/Screens';
-import useStrudel, {Proc} from './components/useStrudel';
+import useStrudel from './components/useStrudel';
 import NavBar from './components/NavBar';
 
 export default function StrudelDemo() {
@@ -40,7 +40,7 @@ export default function StrudelDemo() {
             <main>
                 <div className="container-fluid">
                     <div className="col pt-1">
-                        <NavBar isDisplayChecked={isDisplayChecked}
+                        <NavBar isDisplayChecked={isDisplayChecked}     /* items in Navbar */
                                 displayToggle={displayToggle}
                                 isControlChecked={isControlChecked}
                                 controlToggle={controlToggle}
@@ -48,11 +48,11 @@ export default function StrudelDemo() {
                                 handleToggle={handleToggle}
                                 globalEditor={globalEditor}/>
                     </div>
-                    
-                    <Screens    globalEditor={globalEditor}
+
+                    <Screens    globalEditor={globalEditor}             /* controls, textarea and canvas */
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
-                                controlChecked={isControlChecked} />                                    {/* textarea and canvas */}
+                                controlChecked={isControlChecked} />
                 </div>
             </main >
         </div >
