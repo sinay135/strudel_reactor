@@ -1,4 +1,5 @@
-export const stranger_tune = `
+export const stranger_tune = `setcpm(30)
+
 samples('github:algorave-dave/samples')
 samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
 samples('https://raw.githubusercontent.com/Mittans/tidal-drum-machines/main/machines/tidal-drum-machines.json')

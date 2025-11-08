@@ -1,4 +1,4 @@
-export default function ProcPlay() {
+export default function Process() {
     return (
         <>
             <button id="process" 

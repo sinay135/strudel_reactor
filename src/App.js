@@ -1,12 +1,8 @@
 import './App.css';
 import { useState } from "react";
 import Screens from './components/Screens';
-import PlayStop from './components/PlayStop';
-import Volume from './components/Volume';
-import ProcPlay from './components/ProcPlay';
-import CPM from './components/CPM';
-import DisplayButtons from './components/DisplayButtons';
 import useStrudel, {Proc} from './components/useStrudel';
+import NavBar from './components/NavBar';
 
 export default function StrudelDemo() {
     const globalEditor = useStrudel();
@@ -44,15 +40,13 @@ export default function StrudelDemo() {
             <main>
                 <div className="container-fluid">
                     <div className="col pt-1">
-                        <nav className='d-flex align-items-center'>
-                            <button className="btn btn-dark py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "37.5px"}}><strong>Strudel Demo</strong></button>
-                            <DisplayButtons     isDisplayChecked={isDisplayChecked} onDisplayToggle={displayToggle} 
-                                                isControlChecked={isControlChecked} onControlToggle={controlToggle} />
-                            <ProcPlay />                                                                {/* process button */}
-                            <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
-                            <Volume />
-                            <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>              {/* CPM input */}
-                        </nav>
+                        <NavBar isDisplayChecked={isDisplayChecked}
+                                displayToggle={displayToggle}
+                                isControlChecked={isControlChecked}
+                                controlToggle={controlToggle}
+                                isPlaying={isPlaying}
+                                handleToggle={handleToggle}
+                                globalEditor={globalEditor}/>
                     </div>
                     
                     <Screens    globalEditor={globalEditor}

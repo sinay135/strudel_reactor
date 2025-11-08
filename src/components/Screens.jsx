@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Hush from "./Hush";
+import Hush from "./control/Hush";
 
 function Control( {controlChecked} ) {
     return (
@@ -62,11 +62,15 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
 
     return (
         <div className="row g-0" >
-            <Control controlChecked={controlChecked} />
+            <Control    controlChecked={controlChecked} />
 
-            <Display displaySize={displaySize} displayChecked={displayChecked} defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
+            <Display    displaySize={displaySize} 
+                        displayChecked={displayChecked} 
+                        defaultValue={songText} 
+                        onChange={(e) => setSongText(e.target.value)} />
             
-            <Editor isDisplayChecked={displayChecked} isControlChecked={controlChecked} />
+            <Editor     isDisplayChecked={displayChecked} 
+                        isControlChecked={controlChecked} />
 
             <div className="col-1 ps-0">
                 <canvas id="roll" style={{height: '90vh'}}></canvas>

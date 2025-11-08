@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Proc} from './useStrudel';
+import {Proc} from '../useStrudel';
 
 export default function CPM({globalEditor, handleToggle}) {
 
