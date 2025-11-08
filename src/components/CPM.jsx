@@ -7,7 +7,7 @@ export default function CPM({cpm, setCpm}) {
                         style={{color: "white", borderTopRightRadius: '0', borderBottomRightRadius: '0', borderBottomLeftRadius: '0', borderWidth: '0'}} 
                         id="cpm_label">CPM</span>
             </div>
-            <div className="col-md-1">
+            <div className="col-1">
                 <input  type="text" 
                         class="form-control" 
                         style={{backgroundColor: "rgba(55, 55, 55, 1)", color: "lightgrey", borderTopLeftRadius: '0', borderBottomLeftRadius: '0', borderBottomRightRadius: '0', borderWidth: '0'}} 
