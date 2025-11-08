@@ -22,18 +22,6 @@ export default function StrudelDemo() {
         displaySizeToggle();
     }
     
-    // pause play
-    const [isPlaying, setIsPlaying] = useState(false);
-    const handleToggle = () => {
-        if (isPlaying) {
-            globalEditor.stop();
-            setIsPlaying(false);
-        } else {
-            globalEditor.evaluate();
-            setIsPlaying(true);
-        }
-    }
-    
     return (
         <div style={{backgroundColor: 'rgb(20, 20, 20)', color: 'lightgreen', overflowX: "hidden", minHeight: '100vh'}}>
             <h2 className="ps-3"></h2>
@@ -44,8 +32,6 @@ export default function StrudelDemo() {
                                 displayToggle={displayToggle}
                                 isControlChecked={isControlChecked}
                                 controlToggle={controlToggle}
-                                isPlaying={isPlaying}
-                                handleToggle={handleToggle}
                                 globalEditor={globalEditor}/>
                     </div>
 

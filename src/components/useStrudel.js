@@ -7,22 +7,22 @@ import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from '../tunes';
-import console_monkey_patch, { getD3Data } from '../console-monkey-patch';
+import console_monkey_patch from '../console-monkey-patch';
 
 function ProcessText(match, ...args) {
-    let replace = ""
+    let replace = "";
     if (document.getElementById('flexRadioDefault2').checked) {
-        replace = "_"
+        replace = "_";
     }
 
     return replace
 }
 
 export function Proc(editor) {
-    let proc_text = document.getElementById('proc').value
+    let proc_text = document.getElementById('proc').value;
     let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
     ProcessText(proc_text);
-    editor.setCode(proc_text_replaced)
+    editor.setCode(proc_text_replaced);
 }
 
 export default function useStrudel() {

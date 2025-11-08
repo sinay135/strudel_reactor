@@ -27,7 +27,7 @@ function Display( {displaySize, displayChecked, defaultValue, onChange} ) {
 
 function Editor( {isDisplayChecked, isControlChecked} ) {    
 
-    // Adjust editor size with toggles
+    // adjust editor size through nav switches
     const [editorSize, setEditorSize] = useState(6);
     useEffect(() => {
         if (!isDisplayChecked && !isControlChecked) {
@@ -55,6 +55,7 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
     
     const [songText, setSongText] = useState()
 
+    // when textarea is edited update Editor
     useEffect(() => {
         if (!globalEditor) return;
         globalEditor.setCode(songText);
@@ -73,7 +74,7 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
                         isControlChecked={controlChecked} />
 
             <div className="col-1 ps-0">
-                <canvas id="roll" style={{height: '90vh'}}></canvas>
+                <canvas id="roll" style={{height: '92vh'}}></canvas>
             </div>
         </div>
     )

@@ -3,8 +3,22 @@ import Volume from './navItems/Volume';
 import Process from './navItems/Process';
 import CPM from './navItems/CPM';
 import DisplayButtons from './navItems/DisplayButtons';
+import { useState } from "react";
 
-export default function NavBar( { isDisplayChecked, displayToggle, isControlChecked, controlToggle, isPlaying, handleToggle, globalEditor } ) {
+export default function NavBar( { isDisplayChecked, displayToggle, isControlChecked, controlToggle, globalEditor } ) {
+
+    // pause play
+    const [isPlaying, setIsPlaying] = useState(false);
+    const handleToggle = () => {
+        if (isPlaying) {
+            globalEditor.stop();
+            setIsPlaying(false);
+        } else {
+            globalEditor.evaluate();
+            setIsPlaying(true);
+        }
+    }
+
     return (
         <nav className='d-flex align-items-center'>
             <button className="btn btn-dark py-0"
