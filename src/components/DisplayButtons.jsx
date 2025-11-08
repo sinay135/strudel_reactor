@@ -32,7 +32,7 @@ function ControlButton( {isControlChecked, onControlToggle} ) {
     )
 }
 
-export default function Display( {isDisplayChecked, onDisplayToggle, isControlChecked, onControlToggle}) {
+export default function DisplayButtons( {isDisplayChecked, onDisplayToggle, isControlChecked, onControlToggle}) {
     return (
         <>
             <DisplayButton isDisplayChecked={isDisplayChecked} onDisplayToggle={onDisplayToggle} />

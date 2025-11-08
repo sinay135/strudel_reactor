@@ -1,5 +1,4 @@
 export const stranger_tune = `
-
 samples('github:algorave-dave/samples')
 samples('https://raw.githubusercontent.com/tidalcycles/Dirt-Samples/master/strudel.json')
 samples('https://raw.githubusercontent.com/Mittans/tidal-drum-machines/main/machines/tidal-drum-machines.json')
@@ -56,7 +55,7 @@ note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .adsr("0:0:.5:.1")
 .room(0.6)
 .lpenv(3.3)
-.postgain(pick(gain_patterns, pattern)).color('cyan')
+.postgain(pick(gain_patterns, pattern)).color('rgba(131, 235, 255, 1)')
 
 
 drums:
