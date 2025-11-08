@@ -9,7 +9,7 @@ function Control( {controlChecked} ) {
     )
 }
 
-function TextArea( {displaySize, displayChecked, defaultValue, onChange} ) {
+function Display( {displaySize, displayChecked, defaultValue, onChange} ) {
     return (
         <div className={`col-${displaySize}`} style={{overflowY: 'hidden', display: displayChecked ? "block" : "none"}}>
             <textarea   className="rounded-0 form-control" 
@@ -36,7 +36,7 @@ function Editor( {editorSize} ) {
     )
 }
 
-export default function Editors({globalEditor, displayChecked, displaySize, controlChecked, editorSize}) {
+export default function Screens({globalEditor, displayChecked, displaySize, controlChecked, editorSize}) {
     
     const [songText, setSongText] = useState()
 
@@ -49,7 +49,7 @@ export default function Editors({globalEditor, displayChecked, displaySize, cont
         <div className="row g-0" >
             <Control controlChecked={controlChecked} />
 
-            <TextArea displaySize={displaySize} displayChecked={displayChecked} defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
+            <Display displaySize={displaySize} displayChecked={displayChecked} defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
             
             <Editor editorSize={editorSize} />
 

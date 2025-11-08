@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useRef, useState } from "react";
 import Hush from './components/Hush';
-import Editors from './components/Editors';
+import Screens from './components/Screens';
 import PlayStop from './components/PlayStop';
 import Volume from './components/Volume';
 import ProcPlay from './components/ProcPlay';
@@ -12,14 +12,14 @@ import useStrudel, {Proc} from './components/useStrudel';
 export default function StrudelDemo() {
     const globalEditor = useStrudel();
 
-    // display toggle
+    // textarea toggle
     const [isDisplayChecked, setDisplayChecked] = useState(true);
     const displayToggle = (e) => setDisplayChecked(e.target.checked);
 
+    // textarea col size
     const [displaySize, setDisplaySize] = useState(3);
-    const [editorSize, setEditorSize] = useState(6);
     const displaySizeToggle = (e) => setDisplaySize(displaySize == 5 ? 3 : 5); 
-
+    
     // control toggle
     const [isControlChecked, setControlChecked] = useState(true);
     const controlToggle = (e) => {
@@ -28,6 +28,7 @@ export default function StrudelDemo() {
     }
 
     // Adjust editor size with toggles
+    const [editorSize, setEditorSize] = useState(6);
     useEffect(() => {
         if (!isDisplayChecked && !isControlChecked) {
             setEditorSize(11);
@@ -39,9 +40,6 @@ export default function StrudelDemo() {
             setEditorSize(6);
         }
     }, [isDisplayChecked, isControlChecked]);
-
-    // volume bar
-    const [volume, setVolume] = useState(80);
     
     // pause play
     const [isPlaying, setIsPlaying] = useState(false);
@@ -67,12 +65,12 @@ export default function StrudelDemo() {
                                                 isControlChecked={isControlChecked} onControlToggle={controlToggle} />
                             <ProcPlay />                                                                {/* process */}
                             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
-                            <Volume volume={volume} setVolume={setVolume} />
+                            <Volume />
                             <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>                                           {/* CPM input */}
                         </nav>
                     </div>
                     
-                    <Editors    globalEditor={globalEditor}
+                    <Screens    globalEditor={globalEditor}
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
                                 controlChecked={isControlChecked}
