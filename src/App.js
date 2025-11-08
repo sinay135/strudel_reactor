@@ -61,6 +61,7 @@ export default function StrudelDemo() {
         displaySizeToggle();
     }
 
+    // Adjust editor size with toggles
     useEffect(() => {
         if (!isDisplayChecked && !isControlChecked) {
             setEditorSize(11);
@@ -100,7 +101,7 @@ export default function StrudelDemo() {
 
             //init canvas
             const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 3;
+            canvas.width = canvas.width * 10;
             canvas.height = canvas.height * 4.35;
             const drawContext = canvas.getContext('2d');
             const drawTime = [0, 2]; // time window of drawn haps

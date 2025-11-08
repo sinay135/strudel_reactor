@@ -56,7 +56,7 @@ note(pick(arpeggiator1, "<0 1 2 3>/2"))
 .adsr("0:0:.5:.1")
 .room(0.6)
 .lpenv(3.3)
-.postgain(pick(gain_patterns, pattern))
+.postgain(pick(gain_patterns, pattern)).color('cyan')
 
 
 drums:
