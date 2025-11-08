@@ -12,6 +12,7 @@ import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import Hush from './components/Hush';
 import Editors from './components/Editors';
 import PlayStop from './components/PlayStop';
+import Volume from './components/Volume';
 import ProcPlay from './components/ProcPlay';
 import CPM from './components/CPM';
 import Display from './components/Display';
@@ -44,19 +45,32 @@ export default function StrudelDemo() {
 
     const hasRun = useRef(false);
     const [songText, setSongText] = useState(stranger_tune)
-    const [cpm, setCpm] = useState(30);
-    const [isDisplayChecked, setDisplayChecked] = useState(false);
+
+    // display toggle
+    const [isDisplayChecked, setDisplayChecked] = useState(true);
     const displayToggle = (e) => setDisplayChecked(e.target.checked);
 
+    // control toggle
+    const [isControlChecked, setControlChecked] = useState(false);
+    const controlToggle = (e) => setControlChecked(e.target.checked);
+
+    // volume bar
+    const [volume, setVolume] = useState(80);
+    
+    // pause play
     const [isPlaying, setIsPlaying] = useState(false);
     const handleToggle = () => {
         if (isPlaying) {
             globalEditor.stop();
             setIsPlaying(false);
         } else {
-            globalEditor.evaluate().then(() => setIsPlaying(true));
+            globalEditor.evaluate();
+            setIsPlaying(true);
         }
     }
+
+    // cpm
+    const [cpm, setCpm] = useState(30);
 
     useEffect(() => {
         if (!hasRun.current) {
@@ -134,12 +148,13 @@ export default function StrudelDemo() {
                 <div className="container-fluid">
                     <div className="col ps-1 pt-2">
                         <nav className='d-flex align-items-center'>
-                            <button className="btn btn-dark py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "38px", lineHeight: "38px"}}><strong>Strudel Demo</strong></button>
-                            <Display isDisplayChecked={isDisplayChecked} onDisplayToggle={displayToggle} />
+                            <button className="btn btn-dark py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "37.5px"}}><strong>Strudel Demo</strong></button>
+                            <Display    isDisplayChecked={isDisplayChecked} onDisplayToggle={displayToggle} 
+                                        isControlChecked={isControlChecked} onControlToggle={controlToggle} />
                             <ProcPlay />                                                                {/* process */}
                             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
+                            <Volume volume={volume} setVolume={setVolume} />
                             <CPM cpm={cpm} setCpm={setCpm} />                                           {/* CPM input */}
-                            
                         </nav>
                     </div>
                     <Editors defaultValue={songText} onChange={(e) => setSongText(e.target.value)} chkd={isDisplayChecked} />   {/* textarea and canvas */}
