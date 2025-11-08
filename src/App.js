@@ -1,6 +1,5 @@
 import './App.css';
-import { useEffect, useRef, useState } from "react";
-import Hush from './components/Hush';
+import { useState } from "react";
 import Screens from './components/Screens';
 import PlayStop from './components/PlayStop';
 import Volume from './components/Volume';
@@ -26,20 +25,6 @@ export default function StrudelDemo() {
         setControlChecked(e.target.checked);
         displaySizeToggle();
     }
-
-    // Adjust editor size with toggles
-    const [editorSize, setEditorSize] = useState(6);
-    useEffect(() => {
-        if (!isDisplayChecked && !isControlChecked) {
-            setEditorSize(11);
-        } else if (isDisplayChecked && !isControlChecked) {
-            setEditorSize(6);
-        } else if (!isDisplayChecked && isControlChecked) {
-            setEditorSize(9);
-        } else {
-            setEditorSize(6);
-        }
-    }, [isDisplayChecked, isControlChecked]);
     
     // pause play
     const [isPlaying, setIsPlaying] = useState(false);
@@ -63,18 +48,17 @@ export default function StrudelDemo() {
                             <button className="btn btn-dark py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "37.5px"}}><strong>Strudel Demo</strong></button>
                             <DisplayButtons     isDisplayChecked={isDisplayChecked} onDisplayToggle={displayToggle} 
                                                 isControlChecked={isControlChecked} onControlToggle={controlToggle} />
-                            <ProcPlay />                                                                {/* process */}
+                            <ProcPlay />                                                                {/* process button */}
                             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
                             <Volume />
-                            <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>                                           {/* CPM input */}
+                            <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>              {/* CPM input */}
                         </nav>
                     </div>
                     
                     <Screens    globalEditor={globalEditor}
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
-                                controlChecked={isControlChecked}
-                                editorSize={editorSize} />                                              {/* textarea and canvas */}
+                                controlChecked={isControlChecked} />                                    {/* textarea and canvas */}
                 </div>
             </main >
         </div >

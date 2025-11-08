@@ -25,7 +25,22 @@ function Display( {displaySize, displayChecked, defaultValue, onChange} ) {
     )
 }
 
-function Editor( {editorSize} ) {    
+function Editor( {isDisplayChecked, isControlChecked} ) {    
+
+    // Adjust editor size with toggles
+    const [editorSize, setEditorSize] = useState(6);
+    useEffect(() => {
+        if (!isDisplayChecked && !isControlChecked) {
+            setEditorSize(11);
+        } else if (isDisplayChecked && !isControlChecked) {
+            setEditorSize(6);
+        } else if (!isDisplayChecked && isControlChecked) {
+            setEditorSize(9);
+        } else {
+            setEditorSize(6);
+        }
+    }, [isDisplayChecked, isControlChecked]);
+
     return (
         <div className={`col-${editorSize}`}>
             <div style={{ maxHeight: '92vh', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
@@ -36,7 +51,7 @@ function Editor( {editorSize} ) {
     )
 }
 
-export default function Screens({globalEditor, displayChecked, displaySize, controlChecked, editorSize}) {
+export default function Screens({globalEditor, displayChecked, displaySize, controlChecked}) {
     
     const [songText, setSongText] = useState()
 
@@ -51,7 +66,7 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
 
             <Display displaySize={displaySize} displayChecked={displayChecked} defaultValue={songText} onChange={(e) => setSongText(e.target.value)} />
             
-            <Editor editorSize={editorSize} />
+            <Editor isDisplayChecked={displayChecked} isControlChecked={controlChecked} />
 
             <div className="col-1 ps-0">
                 <canvas id="roll" style={{height: '90vh'}}></canvas>
