@@ -6,10 +6,10 @@ function DisplayButton( {isDisplayChecked, onDisplayToggle} ) {
                         style={{marginTop: "4.5px"}} 
                         type="checkbox" 
                         role="switch" 
-                        id="flexSwitchCheckChecked" 
+                        id="displayCheckChecked" 
                         checked={isDisplayChecked} 
                         onChange={onDisplayToggle}/>
-                <label class="form-check-label" for="flexSwitchCheckChecked">Display</label>
+                <label class="form-check-label" for="displayCheckChecked">Display</label>
             </div>
         </button>
     )
@@ -23,10 +23,10 @@ function ControlButton( {isControlChecked, onControlToggle} ) {
                         style={{marginTop: "4.5px"}} 
                         type="checkbox" 
                         role="switch" 
-                        id="flexSwitchCheckChecked" 
+                        id="controlCheckChecked" 
                         checked={isControlChecked} 
                         onChange={onControlToggle}/>
-                <label class="form-check-label" for="flexSwitchCheckChecked">Control</label>
+                <label class="form-check-label" for="controlCheckChecked">Control</label>
             </div>
         </button>
     )

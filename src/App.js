@@ -48,11 +48,20 @@ export default function StrudelDemo() {
 
     // display toggle
     const [isDisplayChecked, setDisplayChecked] = useState(true);
-    const displayToggle = (e) => setDisplayChecked(e.target.checked);
+    const displayToggle = (e) => {
+        setDisplayChecked(e.target.checked);
+        setEditorSize(editorSize == 6 ? 9 : 6);
+    }
+    const [displaySize, setDisplaySize] = useState(5);
+    const [editorSize, setEditorSize] = useState(6);
+    const displaySizeToggle = (e) => setDisplaySize(displaySize == 5 ? 3 : 5); 
 
     // control toggle
     const [isControlChecked, setControlChecked] = useState(false);
-    const controlToggle = (e) => setControlChecked(e.target.checked);
+    const controlToggle = (e) => {
+        setControlChecked(e.target.checked);
+        displaySizeToggle();
+    }
 
     // volume bar
     const [volume, setVolume] = useState(80);
@@ -146,7 +155,7 @@ export default function StrudelDemo() {
             <h2 className="ps-3"></h2>
             <main>
                 <div className="container-fluid">
-                    <div className="col ps-1 pt-2">
+                    <div className="col pt-2">
                         <nav className='d-flex align-items-center'>
                             <button className="btn btn-dark py-0" style={{borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopRightRadius: "0", color: 'lightgreen', fontSize: '1.5em', whiteSpace: "nowrap", height: "37.5px"}}><strong>Strudel Demo</strong></button>
                             <Display    isDisplayChecked={isDisplayChecked} onDisplayToggle={displayToggle} 
@@ -157,7 +166,13 @@ export default function StrudelDemo() {
                             <CPM cpm={cpm} setCpm={setCpm} />                                           {/* CPM input */}
                         </nav>
                     </div>
-                    <Editors defaultValue={songText} onChange={(e) => setSongText(e.target.value)} chkd={isDisplayChecked} />   {/* textarea and canvas */}
+                    
+                    <Editors    defaultValue={songText} 
+                                onChange={(e) => setSongText(e.target.value)} 
+                                displayChecked={isDisplayChecked} 
+                                displaySize={displaySize} 
+                                controlChecked={isControlChecked}
+                                editorSize={editorSize} />   {/* textarea and canvas */}
                 </div>
                 <div className="col-md-4">
                     <Hush />
