@@ -4,8 +4,10 @@ import { stranger_tune } from '../tunes';
 
 function Control( {controlChecked, items, setSongText} ) {
     return (
-        <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", maxHeight: '92vh'}}>
-            <Instruments items={items} setSongText={setSongText} />
+        <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", height: '92vh', overflow: 'hidden'}}>
+            <div style={{ maxHeight: '100%', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
+                <Instruments items={items} setSongText={setSongText} />
+            </div>
         </div>
     )
 }
