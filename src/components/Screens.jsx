@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import Hush from "./control/Hush";
 import Instruments from "./control/Instruments";
 import { stranger_tune } from '../tunes';
 
-function Control( {controlChecked, items} ) {
+function Control( {controlChecked, items, setSongText} ) {
     return (
         <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", maxHeight: '92vh'}}>
-            <Hush />
-            <Instruments items={items} />
+            <Instruments items={items} setSongText={setSongText} />
         </div>
     )
 }
 
-function Display( {displaySize, displayChecked, defaultValue, onChange} ) {
+function Display( {displaySize, displayChecked, value, onChange} ) {
     return (
         <div className={`col-${displaySize}`} style={{overflowY: 'hidden', display: displayChecked ? "block" : "none"}}>
             <textarea   className="rounded-0 form-control" 
-                defaultValue={defaultValue} 
+                value={value} 
                 onChange={onChange} 
                 style={{borderTopRightRadius: "1", scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)', backgroundColor: "lightgreen", border: "none", height: '92vh', overflowY: 'auto', resize: "none", 
                     display: displayChecked ? "block" : "none"
@@ -54,30 +52,30 @@ function Editor( {isDisplayChecked, isControlChecked} ) {
     )
 }
 
-export default function Screens({globalEditor, displayChecked, displaySize, controlChecked}) {
+export default function Screens({globalEditor, displayChecked, displaySize, controlChecked, isPlaying}) {
     
     const [songText, setSongText] = useState(stranger_tune);
     const [items, setItems] = useState([]);
 
-    
     useEffect(() => {
         // when textarea is edited update Editor
         if (!globalEditor) return;
         globalEditor.setCode(songText);
+        if (isPlaying) globalEditor.evaluate();
         
         // find labels in songText eg. "baseline"
-        const labels = [...songText.matchAll(/^\s*([a-zA-Z0-9_]+):/gm)];
+        const labels = [...songText.matchAll(/^\s*_?([a-zA-Z0-9_]+):/gm)];
         setItems(labels.map(m => m[1]));
 
     }, [songText, globalEditor])
 
     return (
         <div className="row g-0" >
-            <Control    controlChecked={controlChecked} items={items} />
+            <Control    controlChecked={controlChecked} items={items} setSongText={setSongText} />
 
             <Display    displaySize={displaySize} 
                         displayChecked={displayChecked} 
-                        defaultValue={songText} 
+                        value={songText} 
                         onChange={(e) => setSongText(e.target.value)} />
             
             <Editor     isDisplayChecked={displayChecked} 

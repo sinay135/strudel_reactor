@@ -1,14 +1,17 @@
-export default function Instruments({items}) {
+import Hush from "./Hush";
+
+export default function Instruments({items, setSongText}) {
     if (items.length == 0) return (
         <button className="btn text-dark col-11" style={{backgroundColor: "lightgreen", marginInlineStart: "10px"}}>No Labels</button>
     );
 
     return (
         <ul className="list-group">
+            <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
             {items.map((item, i) => (
-                <li key={i} className="mt-1">
-                    <div className="card col-11" style={{ marginInlineStart: "10px" }}>
-                        <div className="card-header py-0 px-0" style={{ backgroundColor: "lightgreen" }} id={`heading${i}`}>
+                <li key={i} className="mt-2">
+                    <div className="card col mx-2" style={{backgroundColor: 'rgba(205, 255, 220, 1)'}}>
+                        <div className="card-header py-0 px-0 rounded-bottom" style={{ backgroundColor: "lightgreen" }} id={`heading${i}`}>
                             <h5 className="mb-0">
                                 <button className="btn text-dark col-12" type="button" data-bs-toggle="collapse" aria-expanded="false"
                                         data-bs-target={`#collapse${i}`}
@@ -18,9 +21,9 @@ export default function Instruments({items}) {
                             </h5>
                         </div>
 
-                        <div id={`collapse${i}`} className="collapse" aria-labelledby={`heading${i}`}>
-                            <div className="card-body">
-                                rahhh
+                        <div id={`collapse${i}`} className="collapse rounded-bottom" aria-labelledby={`heading${i}`} style={{backgroundColor: 'rgba(205, 255, 220, 1)'}}>
+                            <div className="card-body" >
+                                <Hush label={item} name={`${item}${i}`} ON={`${item}ON`} OFF={`${item}OFF`} setSongText={setSongText} />
                             </div>
                         </div>
                     </div>

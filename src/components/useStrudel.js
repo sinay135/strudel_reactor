@@ -20,7 +20,7 @@ function ProcessText(match, ...args) {
 
 export function Proc(editor) {
     let proc_text = document.getElementById('proc').value;
-    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
+    let proc_text_replaced = proc_text.replaceAll('MUTE_', ProcessText);
     ProcessText(proc_text);
     editor.setCode(proc_text_replaced);
 }

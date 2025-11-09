@@ -21,6 +21,17 @@ export default function StrudelDemo() {
         setControlChecked(e.target.checked);
         displaySizeToggle();
     }
+
+    const [isPlaying, setIsPlaying] = useState(false);
+    const handleToggle = () => {
+        if (isPlaying) {
+            globalEditor.stop();
+            setIsPlaying(false);
+        } else {
+            globalEditor.evaluate();
+            setIsPlaying(true);
+        }
+    }
     
     return (
         <div style={{backgroundColor: 'rgb(20, 20, 20)', color: 'lightgreen', overflowX: "hidden", minHeight: '100vh'}}>
@@ -32,13 +43,16 @@ export default function StrudelDemo() {
                                 displayToggle={displayToggle}
                                 isControlChecked={isControlChecked}
                                 controlToggle={controlToggle}
-                                globalEditor={globalEditor}/>
+                                globalEditor={globalEditor}
+                                isPlaying={isPlaying}
+                                handleToggle={handleToggle} />
                     </div>
 
                     <Screens    globalEditor={globalEditor}             /* controls, textarea and canvas */
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
-                                controlChecked={isControlChecked} />
+                                controlChecked={isControlChecked}
+                                isPlaying={isPlaying} />
                 </div>
             </main >
         </div >
