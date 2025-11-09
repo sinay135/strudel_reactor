@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import Hush from "./control/Hush";
+import Instruments from "./control/Instruments";
+import { stranger_tune } from '../tunes';
 
-function Control( {controlChecked} ) {
+function Control( {controlChecked, items} ) {
     return (
         <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", maxHeight: '92vh'}}>
             <Hush />
+            <Instruments items={items} />
         </div>
     )
 }
@@ -53,17 +56,24 @@ function Editor( {isDisplayChecked, isControlChecked} ) {
 
 export default function Screens({globalEditor, displayChecked, displaySize, controlChecked}) {
     
-    const [songText, setSongText] = useState()
+    const [songText, setSongText] = useState(stranger_tune);
+    const [items, setItems] = useState([]);
 
-    // when textarea is edited update Editor
+    
     useEffect(() => {
+        // when textarea is edited update Editor
         if (!globalEditor) return;
         globalEditor.setCode(songText);
-    }, [songText])
+        
+        // find labels in songText eg. "baseline"
+        const labels = [...songText.matchAll(/^\s*([a-zA-Z0-9_]+):/gm)];
+        setItems(labels.map(m => m[1]));
+
+    }, [songText, globalEditor])
 
     return (
         <div className="row g-0" >
-            <Control    controlChecked={controlChecked} />
+            <Control    controlChecked={controlChecked} items={items} />
 
             <Display    displaySize={displaySize} 
                         displayChecked={displayChecked} 
