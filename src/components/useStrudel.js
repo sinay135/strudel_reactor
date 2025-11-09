@@ -11,7 +11,7 @@ import console_monkey_patch from '../console-monkey-patch';
 
 function ProcessText(match, ...args) {
     let replace = "";
-    if (document.getElementById('flexRadioDefault2').checked) {
+    if (false) {
         replace = "_";
     }
 

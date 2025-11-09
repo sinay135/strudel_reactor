@@ -8,6 +8,7 @@ export default function Instruments({items, setSongText}) {
     return (
         <ul className="list-group">
             <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
+            <h7 className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>label in code eg- "bassline:"</h7>
             {items.map((item, i) => (
                 <li key={i} className="mt-2">
                     <div className="card col mx-2" style={{backgroundColor: 'rgba(205, 255, 220, 1)'}}>

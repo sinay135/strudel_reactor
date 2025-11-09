@@ -3,7 +3,6 @@ import Volume from './navItems/Volume';
 import Process from './navItems/Process';
 import CPM from './navItems/CPM';
 import DisplayButtons from './navItems/DisplayButtons';
-import { useState } from "react";
 
 export default function NavBar( { isDisplayChecked, displayToggle, isControlChecked, controlToggle, globalEditor, isPlaying, handleToggle } ) {
     return (

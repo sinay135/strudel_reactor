@@ -61,9 +61,11 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
         // when textarea is edited update Editor
         if (!globalEditor) return;
         globalEditor.setCode(songText);
+
+        // if playing, update audio code
         if (isPlaying) globalEditor.evaluate();
         
-        // find labels in songText eg. "baseline"
+        // find labels in songText eg. "bassline"
         const labels = [...songText.matchAll(/^\s*_?([a-zA-Z0-9_]+):/gm)];
         setItems(labels.map(m => m[1]));
 
