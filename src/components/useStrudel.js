@@ -9,22 +9,6 @@ import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from '../tunes';
 import console_monkey_patch from '../console-monkey-patch';
 
-function ProcessText(match, ...args) {
-    let replace = "";
-    if (false) {
-        replace = "_";
-    }
-
-    return replace
-}
-
-export function Proc(editor) {
-    let proc_text = document.getElementById('proc').value;
-    let proc_text_replaced = proc_text.replaceAll('MUTE_', ProcessText);
-    ProcessText(proc_text);
-    editor.setCode(proc_text_replaced);
-}
-
 export default function useStrudel() {
     const [editorInstance, setEditorInstance] = useState(null);
     const hasRun = useRef(false);
@@ -75,9 +59,6 @@ export default function useStrudel() {
                 },
             });
             //window.globalEditor = globalEditor;  // Debug
-            editor.setCode(stranger_tune);
-            document.getElementById('proc').value = stranger_tune;
-            document.getElementById('process').addEventListener('click', () => Proc(editor));
             setEditorInstance(editor);
         }
     }, []);

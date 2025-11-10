@@ -57,6 +57,7 @@ function Editor( {isDisplayChecked, isControlChecked} ) {
 
 export default function Screens({ globalEditor, displayChecked, displaySize, controlChecked, isPlaying, songText, setSongText }) {
     
+    // list of labels found in songText
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -67,7 +68,7 @@ export default function Screens({ globalEditor, displayChecked, displaySize, con
         // if playing, update audio with new changes
         if (isPlaying) globalEditor.evaluate();
         
-        // find labels in songText eg. "bassline"
+        // find labels in songText eg. "bassline" (gather text before :)
         const labels = [...songText.matchAll(/^\s*_?([a-zA-Z0-9_]+):/gm)];
         setItems(labels.map(m => m[1]));
 
