@@ -4,7 +4,8 @@ import Process from './navItems/Process';
 import CPM from './navItems/CPM';
 import DisplayButtons from './navItems/DisplayButtons';
 
-export default function NavBar( { isDisplayChecked, displayToggle, isControlChecked, controlToggle, globalEditor, isPlaying, handleToggle } ) {
+export default function NavBar({ isDisplayChecked, displayToggle, isControlChecked, controlToggle, 
+                                isPlaying, handleToggle, setSongText }) {
     return (
         <nav className='d-flex align-items-center'>
             <button className="btn btn-dark py-0"
@@ -16,7 +17,7 @@ export default function NavBar( { isDisplayChecked, displayToggle, isControlChec
             <Process />                                                                 {/* process button */}
             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
             <Volume />                                                                  {/* Volume Slider */}
-            <CPM globalEditor={globalEditor} handleToggle={handleToggle}/>              {/* CPM input */}
+            <CPM setSongText={setSongText} />              {/* CPM input */}
         </nav>
     )
 }

@@ -3,6 +3,7 @@ import { useState } from "react";
 import Screens from './components/Screens';
 import useStrudel from './components/useStrudel';
 import NavBar from './components/NavBar';
+import { stranger_tune } from './tunes';
 
 export default function StrudelDemo() {
     const globalEditor = useStrudel();
@@ -22,6 +23,10 @@ export default function StrudelDemo() {
         displaySizeToggle();
     }
 
+    // display (textarea) text
+    const [songText, setSongText] = useState(stranger_tune);
+
+    // audio
     const [isPlaying, setIsPlaying] = useState(false);
     const handleToggle = () => {
         if (isPlaying) {
@@ -39,20 +44,22 @@ export default function StrudelDemo() {
             <main>
                 <div className="container-fluid">
                     <div className="col pt-1">
-                        <NavBar isDisplayChecked={isDisplayChecked}     /* items in Navbar */
+                        <NavBar isDisplayChecked={isDisplayChecked}     /* features in Navbar */
                                 displayToggle={displayToggle}
                                 isControlChecked={isControlChecked}
                                 controlToggle={controlToggle}
-                                globalEditor={globalEditor}
                                 isPlaying={isPlaying}
-                                handleToggle={handleToggle} />
+                                handleToggle={handleToggle}
+                                setSongText={setSongText} />
                     </div>
 
                     <Screens    globalEditor={globalEditor}             /* controls, textarea and canvas */
                                 displayChecked={isDisplayChecked} 
                                 displaySize={displaySize} 
                                 controlChecked={isControlChecked}
-                                isPlaying={isPlaying} />
+                                isPlaying={isPlaying}
+                                songText={songText}
+                                setSongText={setSongText} />
                 </div>
             </main >
         </div >

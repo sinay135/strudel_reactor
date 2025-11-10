@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Instruments from "./control/Instruments";
-import { stranger_tune } from '../tunes';
 
 function Control( {controlChecked, items, setSongText} ) {
     return (
         <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", height: '92vh', overflow: 'hidden'}}>
             <div style={{ maxHeight: '100%', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
+                <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
+                <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>label in code eg- "bassline:"</p>
                 <Instruments items={items} setSongText={setSongText} />
             </div>
         </div>
@@ -54,9 +55,8 @@ function Editor( {isDisplayChecked, isControlChecked} ) {
     )
 }
 
-export default function Screens({globalEditor, displayChecked, displaySize, controlChecked, isPlaying}) {
+export default function Screens({ globalEditor, displayChecked, displaySize, controlChecked, isPlaying, songText, setSongText }) {
     
-    const [songText, setSongText] = useState(stranger_tune);
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export default function Screens({globalEditor, displayChecked, displaySize, cont
         if (!globalEditor) return;
         globalEditor.setCode(songText);
 
-        // if playing, update audio code
+        // if playing, update audio with new changes
         if (isPlaying) globalEditor.evaluate();
         
         // find labels in songText eg. "bassline"

@@ -1,26 +1,12 @@
 import { useEffect, useState } from "react";
-import {Proc} from '../useStrudel';
 
-export default function CPM({globalEditor, handleToggle}) {
+export default function CPM({ setSongText }) {
 
     const [cpm, setCpm] = useState(30);
 
     useEffect(() => {
-        if (!globalEditor) return;
-        const textArea = document.getElementById("proc");
-        if (!textArea) return;
-
-        // replace setcpm() or add if it doesnt exist
-        let text = textArea.value;
-        if (text.match(/setcpm\(\d*\)/)) {
-            text = text.replace(/setcpm\(\d*\)/, `setcpm(${cpm})`);
-        } else {
-            text = `setcpm(${cpm})\n` + text;
-        }
-        textArea.value = text;
-        globalEditor.setCode(text);
-        Proc(globalEditor);
-        handleToggle();
+        // replace textarea.value with new textarea.value
+        setSongText(textarea => textarea.replaceAll(/setcpm\(\d*\)/g, `setcpm(${cpm})`))
     }, [cpm]);
 
     return (
