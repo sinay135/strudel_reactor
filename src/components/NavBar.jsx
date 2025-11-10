@@ -17,7 +17,7 @@ export default function NavBar({ isDisplayChecked, displayToggle, isControlCheck
             <Process />                                                                 {/* process button */}
             <PlayStop onToggle={handleToggle} isPlaying={isPlaying} />                  {/* pause and play */}
             <Volume />                                                                  {/* Volume Slider */}
-            <CPM setSongText={setSongText} />              {/* CPM input */}
+            <CPM setSongText={setSongText} />                                           {/* CPM input */}
         </nav>
     )
 }

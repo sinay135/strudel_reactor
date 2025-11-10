@@ -26,7 +26,7 @@ export default function StrudelDemo() {
     // display (textarea) text
     const [songText, setSongText] = useState(stranger_tune);
 
-    // audio
+    // audio handling
     const [isPlaying, setIsPlaying] = useState(false);
     const handleToggle = () => {
         if (isPlaying) {

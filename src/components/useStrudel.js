@@ -58,7 +58,7 @@ export default function useStrudel() {
                     await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
                 },
             });
-            //window.globalEditor = globalEditor;  // Debug
+            window.editor = editor;  // Debug
             setEditorInstance(editor);
         }
     }, []);
