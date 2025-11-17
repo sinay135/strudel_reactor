@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Instruments from "./control/Instruments";
+import Sequence from "./control/Sequence";
 
 function Control( {controlChecked, items, setSongText} ) {
     return (
@@ -8,6 +9,10 @@ function Control( {controlChecked, items, setSongText} ) {
                 <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
                 <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>label in code eg- " bassline: "</p>
                 <Instruments items={items} setSongText={setSongText} />
+
+                <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Create New</h5>
+                <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>add a new sequence</p>
+                <Sequence />
             </div>
         </div>
     )
@@ -59,10 +64,18 @@ export default function Screens({ globalEditor, displayChecked, displaySize, con
     
     // list of labels found in songText
     const [items, setItems] = useState([]);
+    const [alert, setAlert] = useState(false);
 
+    // when textarea is edited update Editor
     useEffect(() => {
-        // when textarea is edited update Editor
         if (!globalEditor) return;
+
+        // if textarea is empty
+        if (!songText) {
+            setAlert(true);
+            return;
+        } else setAlert(false);
+        
         globalEditor.setCode(songText);
 
         // if playing, update audio with new changes
@@ -75,20 +88,28 @@ export default function Screens({ globalEditor, displayChecked, displaySize, con
     }, [songText, globalEditor])
 
     return (
-        <div className="row g-0" >
-            <Control    controlChecked={controlChecked} items={items} setSongText={setSongText} />
-
-            <Display    displaySize={displaySize} 
-                        displayChecked={displayChecked} 
-                        value={songText} 
-                        onChange={(e) => setSongText(e.target.value)} />
+        <>
+            {alert &&
+                <div className="alert alert-danger mb-0 pt-0 pb-4 col-11" style={{height: "10px", borderBottomLeftRadius: "0", borderBottomRightRadius: "0", borderTopLeftRadius: "0"}}>
+                    Please enter code.
+                </div>
+            }
             
-            <Editor     isDisplayChecked={displayChecked} 
-                        isControlChecked={controlChecked} />
+            <div className="row g-0" >
+                <Control    controlChecked={controlChecked} items={items} setSongText={setSongText} />
 
-            <div className="col-1 ps-0">
-                <canvas id="roll" style={{height: '92vh'}}></canvas>
+                <Display    displaySize={displaySize} 
+                            displayChecked={displayChecked} 
+                            value={songText} 
+                            onChange={(e) => setSongText(e.target.value)} />
+                
+                <Editor     isDisplayChecked={displayChecked} 
+                            isControlChecked={controlChecked} />
+
+                <div className="col-1 ps-0">
+                    <canvas id="roll" style={{height: '92vh'}}></canvas>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
