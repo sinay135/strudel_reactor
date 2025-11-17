@@ -73,17 +73,19 @@ export default function Screens({ globalEditor, displayChecked, displaySize, con
         // if textarea is empty
         if (!songText) {
             setAlert(true);
+            globalEditor.setCode("");
+            console.log("here")
             return;
         } else setAlert(false);
         
         globalEditor.setCode(songText);
-
-        // if playing, update audio with new changes
-        if (isPlaying) globalEditor.evaluate();
         
         // find labels in songText eg. "bassline" (gather text before :)
         const labels = [...songText.matchAll(/^\s*_?([a-zA-Z0-9_]+):/gm)];
         setItems(labels.map(m => m[1]));
+
+        // if playing, update audio with new changes
+        if (isPlaying) globalEditor.evaluate();
 
     }, [songText, globalEditor])
 
