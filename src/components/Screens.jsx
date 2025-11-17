@@ -12,7 +12,7 @@ function Control( {controlChecked, items, setSongText} ) {
 
                 <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Create New</h5>
                 <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>add a new sequence</p>
-                <Sequence />
+                <Sequence setSongText={setSongText} />
             </div>
         </div>
     )
@@ -96,7 +96,7 @@ export default function Screens({ globalEditor, displayChecked, displaySize, con
             }
             
             <div className="row g-0" >
-                <Control    controlChecked={controlChecked} items={items} setSongText={setSongText} />
+                <Control    controlChecked={controlChecked} items={items} setSongText={setSongText} globalEditor={globalEditor} />
 
                 <Display    displaySize={displaySize} 
                             displayChecked={displayChecked} 

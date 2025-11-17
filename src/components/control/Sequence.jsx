@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
+import useStrudel from "../useStrudel";
 
 
-export default function Sequence() {
+export default function Sequence({ setSongText }) {
 
-    const [switches, setSwitches] = useState(Array(12).fill(false));
+    const sequenceSize = 14;
+    const [sequenceNum, setSequenceNum] = useState(0);
+    const [switches, setSwitches] = useState(Array(sequenceSize).fill(false));
     const [selected, setSelected] = useState("");
     const [sequence, setSequence] = useState("");
     const [edit, setEdit] = useState(false);
@@ -14,9 +17,17 @@ export default function Sequence() {
 
     }, [switches, selected])
 
+    useEffect(() => {
+        if (edit) {
+            setSongText(e => e + `\ncustom${sequenceNum}: s("${sequence}")`);
+            setSequenceNum(sequenceNum + 1);
+            setEdit(false);
+        }
+    }, [edit])
+
     return (
         <>
-            <div className="mx-2 mb-3">
+            <div className="mx-2 mb-3 d-flex align-items-center">
                 <select className="form-select py-1" onChange={(e) => setSelected(e.target.value)} style={{backgroundColor: 'rgba(205, 255, 220, 1)'}} aria-label="Default select example">
                     <option value="- ">Select Sequence</option>
                     <option value="hh ">hh</option>
@@ -25,10 +36,12 @@ export default function Sequence() {
                     <option value="lt ">lt</option>
                     <option value="sd ">sd</option>
                 </select>
+                <button className="btn btn-light btn-sm py-1 ms-1" onClick={() => setEdit(true)} style={{backgroundColor: "rgba(205, 255, 220, 1)"}}>Add</button>
             </div>
+
             <div className="row w-100 ms-0 pb-3">
                 <div className="d-flex justify-content-center align-items-center" style={{paddingInlineEnd: "40px"}}>
-                    {Array.from({ length: 12 }).map((x, i) => (
+                    {Array.from({ length: sequenceSize }).map((x, i) => (
                         <div className="col-1" key={i}>
                             <div className="form-check form-switch m-0" style={{transform: "rotate(270deg)"}}>
                                 <input className='form-check-input' 
@@ -45,6 +58,8 @@ export default function Sequence() {
                     ))}
                 </div>
             </div>
+            
+                        
         </>
     )
 }
