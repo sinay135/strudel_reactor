@@ -91,3 +91,10 @@ If the textarea is cleared:
 - Shows a Bootstrap danger alert: `Please enter code.`
 - Prevents evaluation of empty code
 - Audio output stops safely
+
+
+--- 
+
+## How was AI used?
+
+I used ChatGPT to assist me with the understanding of the `StrudelMirror` Class. By going to the defenition of the `StrudelMirror` class i was led to `class Ja {...}`. By showing ChatGPT `class Ja` i was able to learn about the hidden functionalities which I was not aware of within `StrudelMirror`.
