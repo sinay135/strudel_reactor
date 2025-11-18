@@ -1,5 +1,7 @@
 # Strudel Demo
 
+My Video Demonstration- https://youtu.be/Q3tOvgrNSm4
+
 **React + StrudelMirror** writing, editing, and live-coding music in the Strudel environment.  
 
 The following is a list of features created to assist you with *cooking*. 
