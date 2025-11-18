@@ -6,13 +6,13 @@ function Control( {controlChecked, items, setSongText} ) {
     return (
         <div className="col-2 bg-dark " style={{ display: controlChecked ? "block" : "none", height: '92vh', overflow: 'hidden'}}>
             <div style={{ maxHeight: '100%', overflowY: 'auto', scrollbarWidth: "thin", scrollbarColor: 'lightgreen rgba(30, 30, 30, 1)'}}>
-                <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
-                <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>label in code eg- " bassline: "</p>
-                <Instruments items={items} setSongText={setSongText} />
-
                 <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Create New</h5>
                 <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>add a new sequence</p>
                 <Sequence setSongText={setSongText} />
+
+                <h5 className="text-center mt-3" style={{fontSize: '1.2rem', color: 'rgba(225, 255, 234, 1)'}}>Control Labels</h5>
+                <p className="text-center" style={{fontSize: '0.8rem', color: 'rgba(225, 255, 234, 1)'}}>label in code eg- " bassline: "</p>
+                <Instruments items={items} setSongText={setSongText} />
             </div>
         </div>
     )

@@ -12,7 +12,7 @@ export default function Volume() {
                     id="volumeSlider" 
                     value={volume} 
                     onChange={(e) => setVolume(e.target.value)} 
-                    style={{width: '130px'}}></input>
+                    style={{width: '130px'}} disabled></input>
         </button>
     )
 }

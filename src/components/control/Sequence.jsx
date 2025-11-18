@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import useStrudel from "../useStrudel";
+import Switch from "./Switch";
 
 
 export default function Sequence({ setSongText }) {
@@ -42,19 +43,7 @@ export default function Sequence({ setSongText }) {
             <div className="row w-100 ms-0 pb-3">
                 <div className="d-flex justify-content-center align-items-center" style={{paddingInlineEnd: "40px"}}>
                     {Array.from({ length: sequenceSize }).map((x, i) => (
-                        <div className="col-1" key={i}>
-                            <div className="form-check form-switch m-0" style={{transform: "rotate(270deg)"}}>
-                                <input className='form-check-input' 
-                                onChange={() => 
-                                    setSwitches((e) => {
-                                        const clone = [...e];  // create a clone of the previous array
-                                        clone[i] = !clone[i];  // toggle the the bool value
-                                        return clone;          // replace old array with new
-                                    })
-                                }
-                                style={{backgroundColor: `${i % 2 ? 'rgba(61, 61, 61, 1)' : 'rgba(137, 255, 157, 1)'}`, borderRadius: "0.3em"}} type="checkbox" id={`switch${i}`}/>
-                            </div>
-                        </div>
+                        <Switch i={i} setSwitches={setSwitches} />
                     ))}
                 </div>
             </div>
